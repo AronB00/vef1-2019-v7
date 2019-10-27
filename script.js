@@ -24,6 +24,8 @@
   */
 function start() {
   play();
+  confirm();
+
 }
 
 /**
@@ -41,7 +43,8 @@ function start() {
  * Þarf aðútfæra með lykkju og flæðisstýringum
  */
 function play() {
-  const random = randomNumber(1,100;
+  const random = randomNumber(1,100);
+  getResponse(parseGuess(), random);
 }
 
 /**
@@ -74,7 +77,8 @@ function calculateAverage(){
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess(input){
-
+  var gisk = prompt('Giskaðu á tölu. ', '');
+  return gisk;
 }
 
 /**
@@ -93,7 +97,22 @@ function parseGuess(input){
  * Math.abs skilar algildi tölu: |a| = Math.abs(a)
  */
 function getResponse(guess, correct){
-  return 'Ekki rétt';
+  if(guess < 0){
+    prompt('Ekki rétt');
+    return 
+  }else if(guess == correct){
+    alert('Rétt!');
+  }else if(Math.abs(correct-guess) < 5){
+    prompt('Mjög nálægt');
+  }else if(Math.abs(correct-guess)<10){
+    prompt('Nálægt');
+  }else if(Math.abs(correct-guess)<20){
+    prompt('Frekar lángt frá');
+  }else if(Math.abs(correct-guess)<50){
+    prompt('langt frá');
+  }else{
+    prompt('Mjög langt frá');
+  }
 }
 
 /**

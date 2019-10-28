@@ -13,7 +13,7 @@
  *  - Seinni leikur kláraðist í þrem ágiskunum.
  */
 
- var games = [];
+ const games = [];
 
 
  /**
@@ -23,7 +23,8 @@
   * Ef notandi ýtir á "cancel" þá er sótt niðurstöður með getResults() og þær birtar með alert().
   */
 function start() {
-  play();
+  const random = randomNumber(1,100);
+  play(random);
   confirm();
 
 }
@@ -42,8 +43,7 @@ function start() {
  * 
  * Þarf aðútfæra með lykkju og flæðisstýringum
  */
-function play() {
-  const random = randomNumber(1,100);
+function play(random) {
   getResponse(parseGuess(), random);
 }
 
@@ -77,7 +77,7 @@ function calculateAverage(){
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess(input){
-  input = parseInt(prompt('Giskaðui á tölu', ));
+  input = parseInt(prompt('Giskaðu á tölu', ));
   return input;
 }
 
@@ -98,26 +98,23 @@ function parseGuess(input){
  */
 function getResponse(guess, correct){
   if(guess < 0){
-    alert('Ekki rétt');
-    getResponse(parseGuess(), correct)
-  }else if(guess == correct){
-    alert('Rétt!');
-    getResponse(parseGuess(), correct)
-  }else if(Math.abs(correct-guess) < 5){
-    alert('Mjög nálægt');
-    getResponse(parseGuess(), correct)
-  }else if(Math.abs(correct-guess)<10){
-    alert('Nálægt');
-    getResponse(parseGuess(), correct)
-  }else if(Math.abs(correct-guess)<20){
-    alert('Frekar langt frá');
-    getResponse(parseGuess(), correct)
-  }else if(Math.abs(correct-guess)<50){
-    alert('Langt frá');
-    getResponse(parseGuess(), correct)
+    alarm('Ekki rétt');
+    play();
+  }else if(Math.abs(guess-correct) < 5){
+    alarm('Mjög nálægt');
+    play();
+  }else if(Math.abs(guess-correct) < 10){
+    alarm('Nálægt');
+    play();
+  }else if(Math.abs(guess-correct) < 20){
+    alarm('Frekar langt frá');
+    play();
+  }else if(Math.abs(guess-correct) < 50){
+    alarm('Langt frá');
+    play();
   }else{
-    alert('Mjög langt frá');
-    getResponse(parseGuess(), correct)
+    alarm('Mjög langt frá');
+    play();
   }
 }
 

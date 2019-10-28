@@ -13,7 +13,7 @@
  *  - Seinni leikur kláraðist í þrem ágiskunum.
  */
 
- const games = [];
+ var games = [];
 
 
  /**
@@ -77,8 +77,8 @@ function calculateAverage(){
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess(input){
-  var gisk = prompt('Giskaðu á tölu. ', '');
-  return gisk;
+  input = parseInt(prompt('Giskaðui á tölu', ));
+  return input;
 }
 
 /**
@@ -98,20 +98,26 @@ function parseGuess(input){
  */
 function getResponse(guess, correct){
   if(guess < 0){
-    prompt('Ekki rétt');
-    return 
+    alert('Ekki rétt');
+    getResponse(parseGuess(), correct)
   }else if(guess == correct){
     alert('Rétt!');
+    getResponse(parseGuess(), correct)
   }else if(Math.abs(correct-guess) < 5){
-    prompt('Mjög nálægt');
+    alert('Mjög nálægt');
+    getResponse(parseGuess(), correct)
   }else if(Math.abs(correct-guess)<10){
-    prompt('Nálægt');
+    alert('Nálægt');
+    getResponse(parseGuess(), correct)
   }else if(Math.abs(correct-guess)<20){
-    prompt('Frekar lángt frá');
+    alert('Frekar langt frá');
+    getResponse(parseGuess(), correct)
   }else if(Math.abs(correct-guess)<50){
-    prompt('langt frá');
+    alert('Langt frá');
+    getResponse(parseGuess(), correct)
   }else{
-    prompt('Mjög langt frá');
+    alert('Mjög langt frá');
+    getResponse(parseGuess(), correct)
   }
 }
 

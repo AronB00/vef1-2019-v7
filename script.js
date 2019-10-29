@@ -14,6 +14,7 @@
  */
 
  const games = [];
+ 
 
 
  /**
@@ -23,10 +24,16 @@
   * Ef notandi ýtir á "cancel" þá er sótt niðurstöður með getResults() og þær birtar með alert().
   */
 function start() {
-  const random = randomNumber(1,100);
-  play(random);
-  confirm();
-
+  play();
+  if(confirm('viltu spila aftur') == true){
+    games[leikir] = tilraunir;
+    leikir ++;
+    getResults(random, 0, false, 0);
+  }else{
+    for(var i = 0; i < leikir; i++){
+      alert('Leikur nr: ' + games[i]);
+    }
+  }
 }
 
 /**
@@ -43,8 +50,15 @@ function start() {
  * 
  * Þarf aðútfæra með lykkju og flæðisstýringum
  */
-function play(random) {
-  getResponse(parseGuess(), random);
+function play() {
+  const random = randomNumber(1,100);
+  var gisk = 0;
+  var rett = false;
+  var tilraunir = 0;
+  
+  getResults(random, gisk, rett, tilraunir);
+
+  
 }
 
 /**
@@ -56,7 +70,32 @@ function play(random) {
  * Ef enginn leikur var spilaður er skilað:
  *    "Þú spilaðir engann leik >_<"
  */
-function getResults(){
+function getResults(random, gisk, rett, tilraunir){
+  do{
+    gisk = prompt('Giskaðu á tölu milli 0 - 100: ');
+    if(gisk < 0){
+      alert('Ekki rétt!');
+    }else if(gisk == random){
+      rett = true;
+      alert('Rétt!');
+    }else if(Math.abs(gisk - random) < 5){
+      alert('Mjög nálægt');
+    }else if(Math.abs(gisk - random) < 10){
+      alert('Nálægt');
+    }else if(Math.abs(gisk - random) < 20){
+      alert('Frekar langt frá');
+    }else if(Math.abs(gisk - random) < 50){
+      alert('Langt frá');
+    }else{
+      alert('Mjög langt frá');
+    }
+
+    tilraunir ++;
+    
+
+  }while(rett == false);
+
+  return tilraunir;
 
 }
 
@@ -68,7 +107,7 @@ function getResults(){
  * 
  * þarf að útfæra með lykkju.
  */
-function calculateAverage(){
+function spilaAftur(){
 
 }
 
@@ -77,8 +116,8 @@ function calculateAverage(){
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess(input){
-  input = parseInt(prompt('Giskaðu á tölu', ));
-  return input;
+  input = prompt('Giskaðu á tölu');
+  getResponse(input, random);
 }
 
 /**

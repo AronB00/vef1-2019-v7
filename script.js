@@ -87,7 +87,7 @@ function spilaAftur(){
   if(SpilaAftur == true){
     play();
   }else{
-    alert('þú spilaðir ' + games.length + ' leiki \n'+ 'Meðalfjöldi ágiska var ' + (games.reduce((a,b) => a + b, 0)/parseInt(games.length)));
+    alert('þú spilaðir ' + games.length + ' leiki \n'+ 'Meðalfjöldi ágiska var ' + (games.reduce((a,b) => a + b, 0)/games.length).toFixed(2));
   }
 }
 
